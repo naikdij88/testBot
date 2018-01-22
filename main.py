@@ -1,24 +1,53 @@
+import requests
+import time
+#Установка адреса бота
+url = "https://api.telegram.org/bot530430177:AAFzipUqu8Qqa6I4PySV-as8LBHFWQZP5Pc/"
+#Поиск последнего сообщения из массива чата с пользователем Telegram.
 
-import telebot
-from constants import Data 
+def lastUpdate(dataEnd):
+
+    res = dataEnd['result']
+    totalUpdates = len(res) - 1
+    return res[totalUpdates]
+    #Получение идентификатора чата Telegram
+
+
+def getChatID(update):
+
+    chatID = update['message']['chat']['id']
+    return chatID
+    #отправка запроса sendMessage боту
+
+
+def sendResp(chat, value):
+
+    settings = {'chat_id': chat, 'text': value}
+    resp = requests.post(url + 'sendMessage', data=settings)
+    return resp
+    #Get-запрос на обновление информации к боту. Результат – строка json. Метод .json позволяет развернуть ее в массив
+
+
+def getUpdatesJson(request):
+
+    settings = {'timeout': 100, 'offset': None}
+    response = requests.get(request + 'getUpdates', data=settings)
+    return response.json()
+    #Главная функция
+
 
 def main():
-    bot = telebot.TeleBot(Data.token)
-    bot.send_message(chat_id="211951342", text="Привет!!!")
-    @bot.message_handler(content_types=['text'])
-    def send_welcome(message):
-        if message.text == '/sl':
-            bot.reply_to(message, "b")
 
-        elif message.text == 'b':
-            bot.reply_to(message, "a")
-    
+    chatID = getChatID(lastUpdate(getUpdatesJson(url)))
+    sendResp(chatID, 'Ваше сообщение')
+    updateID = lastUpdate(getUpdatesJson(url))['update_id']
+    #Бесконечный цикл, который отправляет запросы боту на получение обновлений
+    while True:
+        #Если обновление есть, отправляем сообщение
+        if updateID == lastUpdate(getUpdatesJson(url))['update_id']:
+            sendResp(getChatID(lastUpdate(getUpdatesJson(url))), 'проба')
+            updateID += 1
+            time.sleep(1)
+            #Запуск главной функции
 
-    bot.polling(none_stop=True, interval=0)
-
-
-if __name__ == '__main__':  
-    try:
-        main()
-    except KeyboardInterrupt:
-            exit()
+if __name__ == '__main__':
+    main()
