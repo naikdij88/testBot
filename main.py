@@ -1,12 +1,10 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 import telebot
 from constants import Data 
 
 def main():
     bot = telebot.TeleBot(Data.token)
-
+    bot.send_message(chat_id="211951342", text="Привет!!!")
     @bot.message_handler(content_types=['text'])
     def send_welcome(message):
         if message.text == '/sl':
