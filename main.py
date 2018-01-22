@@ -44,7 +44,7 @@ def main():
     while True:
         #Если обновление есть, отправляем сообщение
         if updateID == lastUpdate(getUpdatesJson(url))['update_id']:
-            sendResp(getChatID(lastUpdate(getUpdatesJson(url))), 'проба')
+            sendResp(getChatID(lastUpdate(getUpdatesJson(url))), 'проба1')
             updateID += 1
             time.sleep(1)
             #Запуск главной функции
