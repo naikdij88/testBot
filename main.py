@@ -9,7 +9,7 @@ def main():
 
     @bot.message_handler(content_types=['text'])
     def send_welcome(message):
-        if message.text == 'a':
+        if message.text == '/sl':
             bot.reply_to(message, "b")
 
         elif message.text == 'b':
