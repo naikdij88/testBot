@@ -4,7 +4,6 @@ import time
 url = "https://api.telegram.org/bot530430177:AAFzipUqu8Qqa6I4PySV-as8LBHFWQZP5Pc/"
 #Поиск последнего сообщения из массива чата с пользователем Telegram.
 
-
 def lastUpdate(dataEnd):
 
     res = dataEnd['result']
