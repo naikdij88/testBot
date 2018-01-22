@@ -7,7 +7,7 @@ def main():
     bot.send_message(chat_id="211951342", text="Привет!!!")
     @bot.message_handler(content_types=['text'])
     def send_welcome(message):
-        if message.text == '/sl':
+        if message.text == 'a':
             bot.reply_to(message, "b")
 
         elif message.text == 'b':
