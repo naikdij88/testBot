@@ -1,8 +1,14 @@
 import telebot
 from constants import Data 
 import requests
-import post
+from post import url_send 
 from urllib.parse import quote_plus
+import logging
+
+logging.basicConfig(
+    level=logging.DEBUG,
+    format='%(asctime)s : %(levelname)s : %(message)s'
+)
 
 def main():
     bot = telebot.TeleBot(Data.token)
@@ -11,7 +17,7 @@ def main():
     def send_welcome(message):
         if message.text != ' ':
             #bot.send_message(chat_id=, text="b")
-            bot1(message.text)
+            msg_send(message.text)
             
 
         elif message.text == 'b':
@@ -20,10 +26,16 @@ def main():
 
     bot.polling(none_stop=True, interval=0)
 
-def bot1(msg):
+def msg_send(msg):
     result = quote_plus(msg)
-    requests.post(post.url, data=result)
+    r = requests.post(url_refresh(), data=result)
+        
+def url_refresh():
+    url = url_send()
+    logging.debug('новый :' + url)
+    return url
 
+url = url_refresh()
 
 if __name__ == '__main__':  
     try:
