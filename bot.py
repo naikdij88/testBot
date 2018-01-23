@@ -12,7 +12,7 @@ def main():
         if message.text != ' ':
             #bot.send_message(chat_id=, text="b")
             bot1(message.text)
-            bot.reply_to(message, "Привет".encode('utf-8'))
+            
 
         elif message.text == 'b':
             bot.reply_to(message, "a")
