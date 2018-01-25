@@ -15,14 +15,37 @@ def main():
 
     @bot.message_handler(content_types=['text'])
     def send_welcome(message):
-        if message.text != ' ':
-            #bot.send_message(chat_id=, text="b")
-            msg_send(message.text)
-            
+        if message.text == '/help' or message.text == '/help@MySecondLife_bot':
+            help_text = '''     
+            /online_list - Возвращает список Аватаров находящихся в данный момент Онлайн, из списка '~friends'. 
+            /online_list_on - Включает автоматическое оповещение активности авторов из списка при изменении статуса (Online-Offline).
+            /online_list_off - Выключает автоматическое оповещение активности авторов из списка.
+            /guest_list - Выводит список Аватаров приближавшихся к объекту на указанный радиус (не более 96м).
+            /guest_list_on - Включает автоматическое оповещение при нахождении Аватара в указанном радиусе.
+            /guest_list_off - Выключает автоматическое оповещение.
+            '''
+            bot.reply_to(message, help_text)
 
-        elif message.text == 'b':
-            bot.reply_to(message, "a")
-    
+        elif message.text == '/online_list' or message.text == '/online_list@MySecondLife_bot':
+                msg_send('_1')
+
+        elif message.text == '/online_list_on' or message.text == '/online_list_on@MySecondLife_bot':
+                msg_send('_2')
+
+        elif message.text == '/online_list_off' or message.text == '/online_list_off@MySecondLife_bot':
+                msg_send('_3')
+
+        elif message.text == '/guest_list' or message.text == '/guest_list@MySecondLife_bot':
+                msg_send('_4')
+
+        elif message.text == '/guest_list_on' or message.text == '/guest_list_on@MySecondLife_bot':
+                msg_send('_5')
+
+        elif message.text == '/guest_list_off' or message.text == '/guest_list_off@MySecondLife_bot':
+                msg_send('_6')
+                
+        elif message.text != ' ':
+            msg_send(message.text)
 
     bot.polling(none_stop=True, interval=0)
 
